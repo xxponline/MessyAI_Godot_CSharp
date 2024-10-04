@@ -26,16 +26,8 @@ public partial class MessyAI : EditorPlugin
 			ProjectSettings.SetSetting("MessyAIConfigure/SelectedSolutionId", "");
 		}
 		
-		
 		_assetSetInspector = new AIAssetSetInspector();
 		AddInspectorPlugin(_assetSetInspector);
-
-		//_customDock = new MessyAISettingsDeck();
-		//_customDock = GD.Load<PackedScene>("res://addons/MessyAI/MessyAISettingsDeck.tscn")
-		//	.Instantiate<MessyAISettingsDeck>();
-		//_customDock.Name = "MessyAIDeck";
-		//_customDock.AddChild(GD.Load<PackedScene>("res://addons/MessyAI/MessyAISettingsDeck.tscn").Instantiate<MessyAISettingsDeck>());
-		//_customDock.Initialize();
 		
 		
 		_customDock = GD.Load<PackedScene>("res://addons/MessyAI/MessyAISettingsDeck.tscn")
@@ -49,9 +41,8 @@ public partial class MessyAI : EditorPlugin
 		GD.Print("My Plugin has been unloaded!!");
 		
 		RemoveInspectorPlugin(_assetSetInspector);
+		GD.Print("1");
 		
-		//_customDock.UnInitialize();
-		RemoveControlFromDocks(_customDock);
 		_customDock.Free();
 		_customDock = null;
 	}

@@ -6,6 +6,7 @@ namespace MessyAIPlugin.MessyAI;
 public partial class AIAssetSetInspector : EditorInspectorPlugin
 {
     private Button _btnImportAIAssetSet;
+    private AIAssetsImportDialog _importDialog;
     
     public override bool _CanHandle(GodotObject @object)
     {
@@ -24,8 +25,27 @@ public partial class AIAssetSetInspector : EditorInspectorPlugin
 
     public override bool _ParseProperty(GodotObject @object, Variant.Type type, string name, PropertyHint hintType, string hintString,
         PropertyUsageFlags usageFlags, bool wide)
-    {   
-        return base._ParseProperty(@object, type, name, hintType, hintString, usageFlags, wide);
+    {
+        switch (name)
+        {
+            case "ScriptAssetSetName":
+            {
+                var label = new Label();
+                label.Text = $"ScriptAssetSetName : {((AIScriptAssetSet)@object).ScriptAssetSetName}";
+                AddCustomControl(label);
+            }
+                return true;
+            case "ScriptAssetSetId":
+            {
+                var label = new Label();
+                label.Text = $"ScriptAssetSetId : {((AIScriptAssetSet)@object).ScriptAssetSetId}";
+                AddCustomControl(label);
+            }
+                return true;
+            case "AllBehaviourTreeAssets":
+                return false;
+        }
+        return false;
     }
 
     public override void _ParseEnd(GodotObject @object)
@@ -35,6 +55,6 @@ public partial class AIAssetSetInspector : EditorInspectorPlugin
 
     private void OnImportAIPress()
     {
-        GD.Print("11111");
+        AIAssetsImportDialog.OpenDialog();
     }
 }

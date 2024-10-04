@@ -6,8 +6,12 @@ using Newtonsoft.Json.Linq;
 
 namespace MessyAIPlugin.MessyAI;
 
+[Tool]
 public partial class AIAssetsImportDialog : Window
-{   
+{
+    private static AIAssetsImportDialog _instance;
+    
+    private Control _contentRoot;
     
     private List<AssetSetSummaryInfo> _remoteAllAssetSetInfos;
     private string _goalAssetSetPath;
@@ -18,8 +22,39 @@ public partial class AIAssetsImportDialog : Window
     private ItemList _assetSetsContent;
     private HttpRequest _httpListAssetSetsRequester;
 
+    private AIAssetsImportDialog()
+    {
+        
+    }
+
+    public static void OpenDialog()
+    {
+        if (_instance == null)
+        {
+            _instance = new AIAssetsImportDialog();
+            _instance.Connect("close_requested", Callable.From(CloseDialog));
+            EditorInterface.Singleton.GetBaseControl().AddChild(_instance);
+            _instance.PopupCentered();
+        }
+    }
+
+    public static void CloseDialog()
+    {
+        if (_instance != null)
+        {
+            _instance.Hide();
+            EditorInterface.Singleton.GetBaseControl().RemoveChild(_instance);
+            _instance = null;
+        }
+    }
+
     public override void _EnterTree()
     {
+        Size = new Vector2I(500, 500);
+        
+        _contentRoot = ResourceLoader.Load<PackedScene>("res://addons/MessyAI/ImportAIAssetSetDialog.tscn").Instantiate<Control>();
+        AddChild(_contentRoot);
+        
         _backendUrl = ProjectSettings.GetSetting("MessyAIConfigure/BackendUrl").AsString();
         _selectedSolutionId = ProjectSettings.GetSetting("MessyAIConfigure/SelectedSolutionId").AsString();
 
@@ -27,7 +62,7 @@ public partial class AIAssetsImportDialog : Window
         _httpListAssetSetsRequester.Connect("request_completed", new Callable(this,nameof(OnListAssetSetsRequestCompleted)));
         AddChild(_httpListAssetSetsRequester);
 
-        _assetSetsContent = GetNode<ItemList>("VBoxContainer/AssetSetsContent");
+        _assetSetsContent = _contentRoot.GetNode<ItemList>("VBoxContainer/AssetSetsContent");
         _assetSetsContent.Connect("item_selected", new Callable(this, nameof(OnSelectAssetSet)));
 
         RequestAllAssetSets();
@@ -39,6 +74,9 @@ public partial class AIAssetsImportDialog : Window
         _assetSetsContent.Disconnect("item_selected");
         _httpListAssetSetsRequester.Disconnect("request_completed");
         RemoveChild(_httpListAssetSetsRequester);
+        
+        RemoveChild(_contentRoot);
+        _contentRoot.Free();
     }
     
     private void RequestAllAssetSets()
