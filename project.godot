@@ -1,0 +1,29 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[MessyAIConfigure]
+
+BackendUrl="http://localhost:8080"
+SelectedSolutionId="9219a276-cc83-42c5-bc56-13953754f98a"
+
+[application]
+
+config/name="MessyAIPlugin"
+config/features=PackedStringArray("4.2", "C#", "Forward Plus")
+config/icon="res://icon.svg"
+
+[dotnet]
+
+project/assembly_name="MessyAIPlugin"
+project/main_scene=""
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/MessyAI/plugin.cfg")

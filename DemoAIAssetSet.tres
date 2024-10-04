@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="AIScriptAssetSet" load_steps=2 format=3 uid="uid://ctutl3mgetpvm"]
+
+[ext_resource type="Script" path="res://addons/MessyAI/Editor/AIScriptAssetSet.cs" id="1_jm3y7"]
+
+[resource]
+script = ExtResource("1_jm3y7")
+ScriptAssetSetName = ""
+ScriptAssetSetId = ""
+AllBehaviourTreeAssets = []

@@ -1,0 +1,58 @@
+[gd_scene load_steps=2 format=3 uid="uid://dvn54tjs7xkiu"]
+
+[ext_resource type="Script" path="res://addons/MessyAI/MessyAISettingsDeck.cs" id="1_q2pfj"]
+
+[node name="MessyAISettingsDeck" type="Panel"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_q2pfj")
+
+[node name="VerticalBox" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ServerUrlContainer" type="HBoxContainer" parent="VerticalBox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VerticalBox/ServerUrlContainer"]
+layout_mode = 2
+text = "AI ServerUrl:"
+
+[node name="ServerUrlText" type="LineEdit" parent="VerticalBox/ServerUrlContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SolutionOptionsContainer" type="HBoxContainer" parent="VerticalBox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VerticalBox/SolutionOptionsContainer"]
+layout_mode = 2
+text = "AI Solution:"
+
+[node name="SolutionOptions" type="OptionButton" parent="VerticalBox/SolutionOptionsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="AIOperatorContainer" type="HBoxContainer" parent="VerticalBox"]
+layout_mode = 2
+
+[node name="Btn_SubmitMetas" type="Button" parent="VerticalBox/AIOperatorContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Submit Meta"
+
+[node name="Btn_SynchronousAIs" type="Button" parent="VerticalBox/AIOperatorContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Synchronous AI"
